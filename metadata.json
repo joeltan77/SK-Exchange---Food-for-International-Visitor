@@ -1,0 +1,10 @@
+{
+  "name": "K-Street Order: Tourist Korean Menu Voice Ordering",
+  "description": "Voice-enabled Korean street food ordering app for English-speaking tourists, featuring menu OCR, bilingual voice readout & speech ordering, and Telegram stall-owner notifications.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
