@@ -43,31 +43,26 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200/80">
               #{index}
             </span>
-            {item.category && (
-              <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-600">
-                {item.category}
-              </span>
-            )}
             {item.isSpicy && (
               <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-red-50 text-red-700 border border-red-200 flex items-center gap-1">
                 <Flame className="w-3 h-3 text-red-500" />
-                <span>Spicy</span>
+                <span>매운맛</span>
               </span>
             )}
             {item.isVegetarian && (
               <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
                 <Leaf className="w-3 h-3 text-emerald-600" />
-                <span>Veg</span>
+                <span>채식</span>
               </span>
             )}
             {item.needsConfirmation && (
               <span
                 id={`needs-conf-${item.id}`}
                 className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1"
-                title="Detected by OCR, requires confirmation with stall owner"
+                title="점주 확인 필요"
               >
                 <AlertTriangle className="w-3 h-3 text-amber-600" />
-                <span>Verify</span>
+                <span>확인 필요</span>
               </span>
             )}
           </div>
@@ -75,33 +70,25 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           {isCurrentlySpoken && (
             <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full animate-pulse border border-amber-300 shrink-0">
               <Volume2 className="w-3 h-3" />
-              <span>Playing</span>
+              <span>재생 중</span>
             </span>
           )}
         </div>
 
-        {/* Main food title */}
+        {/*
+          Keep English menu content in the MenuItem data for speech and voice
+          ordering, but do not render it visually on the Korean menu card.
+        */}
         <div className="mb-3">
-          <h2 className="text-base sm:text-lg font-bold text-stone-900 leading-snug">
-            {item.englishName}
-          </h2>
-          <p className="text-xs sm:text-sm font-semibold text-amber-800 mt-0.5 tracking-wide">
+          <h2 className="text-lg sm:text-xl font-bold text-amber-800 leading-snug tracking-wide">
             {item.koreanName}
-          </p>
-          {item.description && (
-            <p className="text-xs text-stone-600 mt-1.5 leading-relaxed line-clamp-2">
-              {item.description}
-            </p>
-          )}
+          </h2>
         </div>
 
-        {/* Price display in dual format */}
+        {/* Display only the Korean won price; English speech still uses priceDual.won. */}
         <div className="flex items-baseline gap-2 mb-4">
           <span className="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight">
             {priceDual.krw}
-          </span>
-          <span className="text-xs font-semibold text-stone-500">
-            ({priceDual.won})
           </span>
         </div>
       </div>
@@ -117,7 +104,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           aria-label={`Hear ${item.englishName}, ${priceDual.won} read aloud`}
         >
           <Volume2 className="w-4 h-4 text-stone-600" />
-          <span>Pronounce</span>
+          <span>듣기</span>
         </button>
 
         {/* Add to order / Quantity selector */}
@@ -134,7 +121,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             aria-label={`Add ${item.englishName} to order`}
           >
             <Plus className="w-4 h-4" />
-            <span>{item.available ? 'Add to Order' : 'Sold Out'}</span>
+            <span>{item.available ? '주문 담기' : '품절'}</span>
           </button>
         ) : (
           <div
